@@ -1,0 +1,40 @@
+{
+"product": {
+    "productId": 100,
+    "productDescription": "CONSUINVERSION 90 DIAS",
+    "productComercialName": "INVERSION DIGITAL PLATINUM",
+    "pucFlag": true,
+    "investmentProfile": "PLATINUM",
+    "periodsBetweenInterest": 28,
+    "factor": 100,
+    "interestAnnualBase": 360,
+    "isr": {
+      "rate": 0.5,
+      "factor": 100,
+      "annualBase": 365
+    },
+    "interestplan": [
+      {
+        "planId": "91",
+        "term": 90,
+        "amount": 5000,
+        "interestRate": 6.5
+      }
+    ]
+  }
+}
+
+
+***********************************************************
+POST http://localhost:8080/isr/saveIsr
+PUT http://localhost:8080/isr/modificarIsr
+GET http://localhost:8080/isr/obtenerIsr
+DELETE http://localhost:8080/isr/eliminarIsr?idIsr=YU69
+
+  {
+        "idIsr": "YU69",
+        "rate": 0.7,
+        "factor": 102,
+        "annualBase": 366
+   }
+
