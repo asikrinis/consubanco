@@ -321,7 +321,7 @@ Esta API permite la interacción a través de operaciones HTTP como `GET`, `POST
 - **Datos de prueba**: Puedes usar herramientas como **Postman** o **cURL** para realizar pruebas sobre los diferentes endpoints.
 
 ## Autor
-ConsuBanco Development Team
+ConsuBanco Development Team (Ana Gabriela Campos, Asinú García Krinis)
 
 ## Licencia
 Este proyecto está bajo la licencia MIT.
