@@ -38,7 +38,6 @@ public class IsrServicio {
         return isrRepositorio.findAll();
     }
 
-
     public Optional<Isr> obtenerIsr(String idIsr){
         return isrRepositorio.findById(idIsr);
     }
@@ -46,7 +45,6 @@ public class IsrServicio {
     public void eliminarIsr(String idIsr){
         isrRepositorio.deleteById(idIsr);
     }
-
 
 
 }

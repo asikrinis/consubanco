@@ -1,29 +1,86 @@
 {
-"product": {
-    "productId": 100,
+    "idProduct": "100",
     "productDescription": "CONSUINVERSION 90 DIAS",
     "productComercialName": "INVERSION DIGITAL PLATINUM",
-    "pucFlag": true,
     "investmentProfile": "PLATINUM",
     "periodsBetweenInterest": 28,
     "factor": 100,
     "interestAnnualBase": 360,
-    "isr": {
+    "Isr": {
+      "idIsr": "YU69",
       "rate": 0.5,
       "factor": 100,
       "annualBase": 365
     },
-    "interestplan": [
+    "InterestPlan": [
       {
-        "planId": "91",
+        "idPlan": "91",
         "term": 90,
         "amount": 5000,
         "interestRate": 6.5
       }
     ]
   }
+
+
+{
+    "idProduct": "100",
+    "productDescription": "CONSUINVERSION 90 DIAS",
+    "productCommercialName": "INVERSION",
+     "term": "120",
+    "investmentProfile": "PLATINUM",
+    "periodsInterest": 28,
+    "factor": 100,
+    "interestAnnualBase": 360,
+    "isr": {
+        "idIsr": "YU69",
+        "rate": 0.5,
+        "factor": 100,
+        "annualBase": 365
+    },
+    "interestPlan": [
+        {
+            "idPlan": "91",
+            "term": 90,
+            "amount": 5000,
+            "interestRate": 6.5
+        }
+    ]
 }
 
+ http://localhost:8080/investmentProduct/saveInvestmentProduct
+
+{
+    "idProduct": "101U",
+    "productDescription": "CONSUINVERSION 90 DIAS",
+    "productCommercialName": "INVERSION DIGITAL PLATINUM",
+    "term": 120,
+    "investmentProfile": "PLATINUM",
+    "periodsBetweenInterest": 28,
+    "factor": 101,
+    "interestAnnualBase": 361,
+    "Isr":{
+	"idIsr": "Y89",
+        "rate": 0.5,
+        "factor": 100,
+        "annualBase": 365
+    },
+    "InterestPlan": [
+        {
+            "planId": "3",
+   	    "term": 120,
+            "amount": 5000,
+            "interestRate": 7.500
+        },
+        {
+            "planId": "6",
+    	    "term": 120,
+            "amount": 10000,
+            "interestRate": 8.7600
+        }
+    ]
+}
+VALUES ('YU69', 0.5, 100, 365);
 
 ***********************************************************
 POST http://localhost:8080/isr/saveIsr
@@ -33,8 +90,7 @@ DELETE http://localhost:8080/isr/eliminarIsr?idIsr=YU69
 
   {
         "idIsr": "YU69",
-        "rate": 0.7,
-        "factor": 102,
-        "annualBase": 366
+        "rate": 0.5,
+        "factor": 100,
+        "annualBase": 365
    }
-
