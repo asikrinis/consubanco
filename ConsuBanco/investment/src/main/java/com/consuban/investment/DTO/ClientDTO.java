@@ -1,21 +1,10 @@
-package com.consuban.investment.Objetos;
+package com.consuban.investment.DTO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
-@Entity
-@Table(name = "Client")
-@Getter
-@Setter
-public class Client {
-    @Id
+public class ClientDTO {
     private String idClient;
     private String clientName;
     private String phoneNum;
-    private String clientCol; 
+    private String clientCol;
 
     // Getters y Setters
     public String getIdClient() {

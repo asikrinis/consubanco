@@ -1,25 +1,13 @@
-package com.consuban.investment.Objetos;
+package com.consuban.investment.DTO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
-@Entity
-@Table(name = "InterestPlan")
-@Getter
-@Setter
-public class InterestPlan {
-
-    @Id
+public class InterestPlanDTO {
     private String idInterestPlan;
     private int amount;
     private double rate;
     private int factor;
     private int annualBase;
 
-    // Getters y Setters adicionales si no usas Lombok
+    // Getters y Setters
     public String getIdInterestPlan() {
         return idInterestPlan;
     }

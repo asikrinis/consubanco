@@ -1,10 +1,7 @@
 package com.consuban.investment.Repositorio;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
 import com.consuban.investment.Objetos.InterestPlan;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface InterestPlanRepositorio extends JpaRepository<InterestPlan,String> {
-
-    
+public interface InterestPlanRepositorio extends JpaRepository<InterestPlan, String> {
 }

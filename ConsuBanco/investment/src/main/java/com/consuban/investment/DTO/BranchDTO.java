@@ -1,11 +1,6 @@
-package com.consuban.investment.Objetos;
+package com.consuban.investment.DTO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-@Entity
-public class Branch {
-    @Id
+public class BranchDTO {
     private String idBranch;
     private String branchName;
     private String address;

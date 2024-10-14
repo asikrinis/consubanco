@@ -1,17 +1,14 @@
 package com.consuban.investment.Controladores;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import com.consuban.investment.DTO.IsrDTO;
 import com.consuban.investment.Objetos.Isr;
 import com.consuban.investment.Servicio.IsrServicio;
 
@@ -20,27 +17,46 @@ import com.consuban.investment.Servicio.IsrServicio;
 public class IsrControlador {
 
     @Autowired
-    IsrServicio isrServicio;
+    private IsrServicio isrService;
 
+    // Crear un nuevo ISR
     @PostMapping("/saveIsr")
-    public Isr saveIsr(@RequestBody Isr isr){        
-        return isrServicio.saveIsr(isr);
+    public ResponseEntity<IsrDTO> saveIsr(@RequestBody IsrDTO isrDTO) {
+        Isr isr = isrService.convertToEntity(isrDTO);
+        Isr savedIsr = isrService.saveIsr(isr);
+        return ResponseEntity.ok(isrService.convertToDTO(savedIsr));
     }
 
-    @PutMapping("/modificarIsr")
-    public Isr modificarIsr(@RequestBody Isr isr){
-        return isrServicio.modificarIsr(isr);
+    // Actualizar un ISR existente
+    @PutMapping("/updateIsr")
+    public ResponseEntity<IsrDTO> updateIsr(@RequestBody IsrDTO isrDTO) {
+        Isr isr = isrService.convertToEntity(isrDTO);
+        Isr updatedIsr = isrService.updateIsr(isr);
+        return ResponseEntity.ok(isrService.convertToDTO(updatedIsr));
     }
 
-    @GetMapping("/obtenerIsr")
-    public List<Isr> obtenerIsr(){
-        return isrServicio.obtenerId();
+    // Obtener un ISR por su ID
+    @GetMapping("/{idIsr}")
+    public ResponseEntity<IsrDTO> getIsr(@PathVariable String idIsr) {
+        Optional<Isr> isr = isrService.getIsr(idIsr);
+        return isr.map(value -> ResponseEntity.ok(isrService.convertToDTO(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/eliminarIsr")
-    public void eliminarIsr(@RequestParam String idIsr){
-        isrServicio.eliminarIsr(idIsr);
+    // Eliminar un ISR por su ID
+    @DeleteMapping("/{idIsr}")
+    public ResponseEntity<Void> deleteIsr(@PathVariable String idIsr) {
+        isrService.deleteIsr(idIsr);
+        return ResponseEntity.ok().build();
     }
 
-    
+    // Obtener todos los ISR
+    @GetMapping("/all")
+    public ResponseEntity<List<IsrDTO>> getAllIsrs() {
+        List<Isr> isrs = isrService.getAllIsrs();
+        List<IsrDTO> isrDTOs = isrs.stream()
+                                   .map(isrService::convertToDTO)
+                                   .collect(Collectors.toList());
+        return ResponseEntity.ok(isrDTOs);
+    }
 }

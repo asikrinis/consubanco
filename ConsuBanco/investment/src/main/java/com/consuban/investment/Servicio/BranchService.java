@@ -2,10 +2,13 @@ package com.consuban.investment.Servicio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.consuban.investment.DTO.BranchDTO;
 import com.consuban.investment.Objetos.Branch;
 import com.consuban.investment.Repositorio.BranchRepository;
 
@@ -15,29 +18,42 @@ public class BranchService {
     @Autowired
     private BranchRepository branchRepository;
 
-    // Guardar una branch
     public Branch saveBranch(Branch branch) {
         return branchRepository.save(branch);
     }
 
-    // Actualizar una branch existente
     public Branch updateBranch(Branch branch) {
         return branchRepository.save(branch);
     }
 
-    // Obtener una branch por su ID
-    public Optional<Branch> getBranch(int branchId) {
+    public Optional<Branch> getBranch(String branchId) {
         return branchRepository.findById(branchId);
     }
 
-
-    // Eliminar una branch por su ID
-    public void deleteBranch(int branchId) {
+    public void deleteBranch(String branchId) {
         branchRepository.deleteById(branchId);
     }
 
-    // Obtener todas las branches
     public List<Branch> getAllBranches() {
-        return branchRepository.findAll();
+        Iterable<Branch> iterableBranches = branchRepository.findAll();
+        List<Branch> branchList = StreamSupport.stream(iterableBranches.spliterator(), false)
+                                            .collect(Collectors.toList());
+        return branchList;
+    }
+
+    public Branch convertToEntity(BranchDTO branchDTO) {
+        Branch branch = new Branch();
+        branch.setIdBranch(branchDTO.getIdBranch());
+        branch.setBranchName(branchDTO.getBranchName());
+        branch.setAddress(branchDTO.getAddress());
+        return branch;
+    }
+
+    public BranchDTO convertToDTO(Branch branch) {
+        BranchDTO branchDTO = new BranchDTO();
+        branchDTO.setIdBranch(branch.getIdBranch());
+        branchDTO.setBranchName(branch.getBranchName());
+        branchDTO.setAddress(branch.getAddress());
+        return branchDTO;
     }
 }

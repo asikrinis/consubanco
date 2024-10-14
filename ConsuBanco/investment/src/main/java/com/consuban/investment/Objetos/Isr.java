@@ -1,7 +1,6 @@
 package com.consuban.investment.Objetos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,21 +12,20 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="Isr",schema = "targetSchemaName")
-
+@Table(name="Isr", schema="targetSchemaName")
 public class Isr {
 
     @Id
-    @Column(name="idIsr",unique = true,nullable = true)
+    @Column(name="idIsr", unique=true, nullable=false)
     private String idIsr;
 
-    @Column(name="rate",unique = false,nullable = false)
+    @Column(name="rate", nullable=false)
     private float rate;
 
-    @Column(name="factor",unique = false ,nullable = false)
+    @Column(name="factor", nullable=false)
     private int factor;
 
-    @Column(name="annualBase",unique = false, nullable = false)
+    @Column(name="annualBase", nullable=false)
     private int annualBase;
 
     @OneToOne(mappedBy = "isr")
