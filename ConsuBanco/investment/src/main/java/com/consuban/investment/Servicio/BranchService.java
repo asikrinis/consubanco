@@ -26,24 +26,24 @@ public class BranchService {
         return branchRepository.save(branch);
     }
 
-    public Optional<Branch> getBranch(String branchId) {
+    public Optional<Branch> getBranch(Long branchId) {
         return branchRepository.findById(branchId);
     }
 
-    public void deleteBranch(String branchId) {
+    public void deleteBranch(Long branchId) {
         branchRepository.deleteById(branchId);
     }
 
     public List<Branch> getAllBranches() {
         Iterable<Branch> iterableBranches = branchRepository.findAll();
         List<Branch> branchList = StreamSupport.stream(iterableBranches.spliterator(), false)
-                                            .collect(Collectors.toList());
+                                               .collect(Collectors.toList());
         return branchList;
     }
 
     public Branch convertToEntity(BranchDTO branchDTO) {
         Branch branch = new Branch();
-        branch.setIdBranch(branchDTO.getIdBranch());
+        branch.setIdBranch(branchDTO.getIdBranch()); // Ya no necesitas conversión si ambos son Long
         branch.setBranchName(branchDTO.getBranchName());
         branch.setAddress(branchDTO.getAddress());
         return branch;
@@ -51,7 +51,7 @@ public class BranchService {
 
     public BranchDTO convertToDTO(Branch branch) {
         BranchDTO branchDTO = new BranchDTO();
-        branchDTO.setIdBranch(branch.getIdBranch());
+        branchDTO.setIdBranch(branch.getIdBranch()); // Ya no necesitas conversión si ambos son Long
         branchDTO.setBranchName(branch.getBranchName());
         branchDTO.setAddress(branch.getAddress());
         return branchDTO;

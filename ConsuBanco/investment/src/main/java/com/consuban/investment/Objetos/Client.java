@@ -1,10 +1,15 @@
 package com.consuban.investment.Objetos;
 
+import java.util.HashSet;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "Client")
@@ -15,7 +20,10 @@ public class Client {
     private String idClient;
     private String clientName;
     private String phoneNum;
-    private String clientCol; 
+    private String clientCol;
+
+    @OneToMany(mappedBy = "client")
+    private Set<ClientHasBranch> clientBranches = new HashSet<>();
 
     // Getters y Setters
     public String getIdClient() {

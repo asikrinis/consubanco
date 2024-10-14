@@ -26,13 +26,12 @@ public class BranchController {
     @Autowired
     private BranchService branchService;
 
-    // Crear una nueva branch
-    @PostMapping("/saveBranch")
-    public ResponseEntity<BranchDTO> saveBranch(@RequestBody BranchDTO branchDTO) {
+    @PostMapping("/createBranch")
+    public Branch createBranch(@RequestBody BranchDTO branchDTO) {
         Branch branch = branchService.convertToEntity(branchDTO);
-        Branch savedBranch = branchService.saveBranch(branch);
-        return ResponseEntity.ok(branchService.convertToDTO(savedBranch));
+        return branchService.saveBranch(branch);
     }
+    
 
     // Actualizar una branch existente
     @PutMapping("/updateBranch")
@@ -42,20 +41,21 @@ public class BranchController {
         return ResponseEntity.ok(branchService.convertToDTO(updatedBranch));
     }
 
-    // Obtener una branch por su ID
     @GetMapping("/{branchId}")
     public ResponseEntity<BranchDTO> getBranch(@PathVariable String branchId) {
-        Optional<Branch> branch = branchService.getBranch(branchId);
+        Long branchIdLong = Long.parseLong(branchId);
+        Optional<Branch> branch = branchService.getBranch(branchIdLong);
         return branch.map(value -> ResponseEntity.ok(branchService.convertToDTO(value)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                     .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Eliminar una branch por su ID
     @DeleteMapping("/{branchId}")
     public ResponseEntity<Void> deleteBranch(@PathVariable String branchId) {
-        branchService.deleteBranch(branchId);
+        Long branchIdLong = Long.parseLong(branchId);
+        branchService.deleteBranch(branchIdLong);
         return ResponseEntity.ok().build();
     }
+    
 
     // Obtener todas las branches
     @GetMapping("/all")

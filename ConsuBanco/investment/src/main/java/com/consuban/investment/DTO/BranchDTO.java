@@ -1,16 +1,16 @@
 package com.consuban.investment.DTO;
 
 public class BranchDTO {
-    private String idBranch;
+    private Long idBranch;
     private String branchName;
     private String address;
 
     // Getters y Setters
-    public String getIdBranch() {
+    public Long getIdBranch() {
         return idBranch;
     }
 
-    public void setIdBranch(String idBranch) {
+    public void setIdBranch(Long idBranch) {
         this.idBranch = idBranch;
     }
 
