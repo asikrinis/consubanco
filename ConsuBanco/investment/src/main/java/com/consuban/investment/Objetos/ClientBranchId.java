@@ -7,25 +7,24 @@ import java.util.Objects;
 @Embeddable
 public class ClientBranchId implements Serializable {
 
-    private String clientId;
+    private Long clientId;
     private Long branchId;
 
     // Constructor vacío
     public ClientBranchId() {}
 
-    // Constructor con parámetros correctos
-    public ClientBranchId(String clientId, Long branchId) {
+    // Constructor con parámetros
+    public ClientBranchId(Long clientId, Long branchId) {
         this.clientId = clientId;
         this.branchId = branchId;
     }
-    
 
     // Getters y Setters
-    public String getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

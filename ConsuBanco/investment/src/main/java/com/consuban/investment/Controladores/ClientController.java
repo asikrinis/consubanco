@@ -36,15 +36,16 @@ public class ClientController {
 
     // Obtener un cliente por su ID
     @GetMapping("/{clientId}")
-    public ResponseEntity<ClientDTO> getClient(@PathVariable String clientId) {
+    public ResponseEntity<ClientDTO> getClient(@PathVariable Long clientId) {
         Optional<Client> client = clientService.getClient(clientId);
         return client.map(value -> ResponseEntity.ok(clientService.convertToDTO(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
     // Eliminar un cliente por su ID
     @DeleteMapping("/{clientId}")
-    public ResponseEntity<Void> deleteClient(@PathVariable String clientId) {
+    public ResponseEntity<Void> deleteClient(@PathVariable Long clientId) {
         clientService.deleteClient(clientId);
         return ResponseEntity.ok().build();
     }

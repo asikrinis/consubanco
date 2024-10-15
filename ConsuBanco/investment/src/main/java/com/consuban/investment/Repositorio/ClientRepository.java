@@ -1,10 +1,7 @@
 package com.consuban.investment.Repositorio;
 
 import com.consuban.investment.Objetos.Client;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface ClientRepository extends CrudRepository<Client, String> {
-    // Métodos personalizados si es necesario
+public interface ClientRepository extends JpaRepository<Client, Long> {
 }

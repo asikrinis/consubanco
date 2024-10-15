@@ -1,17 +1,18 @@
 package com.consuban.investment.DTO;
 
 public class ClientDTO {
-    private String idClient;
+
+    private Long idClient;
     private String clientName;
     private String phoneNum;
     private String clientCol;
 
     // Getters y Setters
-    public String getIdClient() {
+    public Long getIdClient() {
         return idClient;
     }
 
-    public void setIdClient(String idClient) {
+    public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
 

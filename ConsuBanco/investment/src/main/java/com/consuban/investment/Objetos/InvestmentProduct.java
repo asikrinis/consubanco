@@ -3,7 +3,8 @@ package com.consuban.investment.Objetos;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,8 @@ public class InvestmentProduct {
     @Column(name="interestRate", nullable=false)
     private double interestRate;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "idIsr", nullable = false) // Definimos la columna para la relación con Isr
     private Isr isr;
+
 }

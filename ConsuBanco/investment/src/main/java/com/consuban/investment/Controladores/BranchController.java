@@ -22,18 +22,22 @@ import com.consuban.investment.Servicio.BranchService;
 @RestController
 @RequestMapping("/branch")
 public class BranchController {
-
     @Autowired
     private BranchService branchService;
+
+    // Guardar una nueva sucursal
+    @PostMapping("/saveBranch")
+    public ResponseEntity<Branch> saveBranch(@RequestBody Branch branch) {
+        Branch savedBranch = branchService.saveBranch(branch);
+        return ResponseEntity.ok(savedBranch);
+    }
 
     @PostMapping("/createBranch")
     public Branch createBranch(@RequestBody BranchDTO branchDTO) {
         Branch branch = branchService.convertToEntity(branchDTO);
         return branchService.saveBranch(branch);
     }
-    
 
-    // Actualizar una branch existente
     @PutMapping("/updateBranch")
     public ResponseEntity<BranchDTO> updateBranch(@RequestBody BranchDTO branchDTO) {
         Branch branch = branchService.convertToEntity(branchDTO);
@@ -41,23 +45,19 @@ public class BranchController {
         return ResponseEntity.ok(branchService.convertToDTO(updatedBranch));
     }
 
-    @GetMapping("/{branchId}")
-    public ResponseEntity<BranchDTO> getBranch(@PathVariable String branchId) {
-        Long branchIdLong = Long.parseLong(branchId);
-        Optional<Branch> branch = branchService.getBranch(branchIdLong);
+    @GetMapping("/{id}")
+    public ResponseEntity<BranchDTO> getBranchById(@PathVariable Long id) {
+        Optional<Branch> branch = branchService.getBranchById(id);
         return branch.map(value -> ResponseEntity.ok(branchService.convertToDTO(value)))
                      .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{branchId}")
-    public ResponseEntity<Void> deleteBranch(@PathVariable String branchId) {
-        Long branchIdLong = Long.parseLong(branchId);
-        branchService.deleteBranch(branchIdLong);
+    public ResponseEntity<Void> deleteBranch(@PathVariable Long branchId) {
+        branchService.deleteBranch(branchId);
         return ResponseEntity.ok().build();
     }
-    
 
-    // Obtener todas las branches
     @GetMapping("/all")
     public ResponseEntity<List<BranchDTO>> getAllBranches() {
         List<Branch> branches = branchService.getAllBranches();

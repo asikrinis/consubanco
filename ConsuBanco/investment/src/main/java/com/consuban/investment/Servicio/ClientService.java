@@ -25,21 +25,21 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    // Obtener un cliente por su ID
-    public Optional<Client> getClient(String clientId) {
+    public Optional<Client> getClient(Long clientId) {
         return clientRepository.findById(clientId);
+    }    
+    
+    public void deleteClient(Long clientId) {
+        clientRepository.deleteById(clientId);
     }
+        
 
     // Obtener todos los clientes
     public List<Client> getAllClients() {
         return (List<Client>) clientRepository.findAll();
     }
 
-    // Eliminar un cliente por su ID
-    public void deleteClient(String clientId) {
-        clientRepository.deleteById(clientId);
-    }
-
+    
     // Convertir de ClientDTO a Client
     public Client convertToEntity(ClientDTO clientDTO) {
         Client client = new Client();

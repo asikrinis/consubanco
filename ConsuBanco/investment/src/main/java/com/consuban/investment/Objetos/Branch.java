@@ -1,16 +1,16 @@
 package com.consuban.investment.Objetos;
 
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
 @Entity
+@Table(name = "branch")
 public class Branch {
     @Id
-    private Long idBranch; // Cambiado de String a Long
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String branchName;
     private String address;
 
@@ -18,12 +18,12 @@ public class Branch {
     private Set<ClientHasBranch> clientBranches = new HashSet<>();
 
     // Getters y Setters
-    public Long getIdBranch() { // Cambiado de String a Long
-        return idBranch;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdBranch(Long idBranch) { // Cambiado de String a Long
-        this.idBranch = idBranch;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBranchName() {

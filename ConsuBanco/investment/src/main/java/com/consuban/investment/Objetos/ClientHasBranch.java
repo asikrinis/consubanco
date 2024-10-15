@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Client_has_Branch")
+@Table(name = "client_has_branch")
 public class ClientHasBranch implements Serializable {
 
     @EmbeddedId
@@ -12,22 +12,26 @@ public class ClientHasBranch implements Serializable {
 
     @ManyToOne
     @MapsId("clientId")
-    @JoinColumn(name = "Client_idClient")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @ManyToOne
     @MapsId("branchId")
-    @JoinColumn(name = "Branch_idBranch")
+    @JoinColumn(name = "branch_id", nullable = false)
     private Branch branch;
 
-    // Constructor vacío
-    public ClientHasBranch() {}
+    // Constructor sin parámetros
+    public ClientHasBranch() {
+    }
 
     // Constructor con parámetros
     public ClientHasBranch(Client client, Branch branch) {
+        if (client == null || branch == null) {
+            throw new IllegalArgumentException("Client and Branch must not be null");
+        }
         this.client = client;
         this.branch = branch;
-        this.id = new ClientBranchId(client.getIdClient(), branch.getIdBranch());
+        this.id = new ClientBranchId(client.getIdClient(), branch.getId());
     }
 
     // Getters y Setters

@@ -1,36 +1,42 @@
 package com.consuban.investment.Objetos;
 
-import java.util.HashSet;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.Set;
+import jakarta.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Client")
-@Getter
-@Setter
-public class Client {
+public class Client implements Serializable {
+
     @Id
-    private String idClient;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idClient")
+    private Long idClient; 
+
+    @Column(name = "clientName", nullable = false)
     private String clientName;
+
+    @Column(name = "phoneNum")
     private String phoneNum;
+
+    @Column(name = "clientCol")
     private String clientCol;
 
-    @OneToMany(mappedBy = "client")
-    private Set<ClientHasBranch> clientBranches = new HashSet<>();
+    // Constructor sin parámetros
+    public Client() {}
+
+    // Constructor con parámetros
+    public Client(String clientName, String phoneNum, String clientCol) {
+        this.clientName = clientName;
+        this.phoneNum = phoneNum;
+        this.clientCol = clientCol;
+    }
 
     // Getters y Setters
-    public String getIdClient() {
+    public Long getIdClient() {
         return idClient;
     }
 
-    public void setIdClient(String idClient) {
+    public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
 
