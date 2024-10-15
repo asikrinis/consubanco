@@ -55,8 +55,9 @@ public class BranchController {
     public ResponseEntity<BranchDTO> getBranchById(@PathVariable Long id) {
         Optional<Branch> branch = branchService.getBranchById(id);
         return branch.map(value -> ResponseEntity.ok(branchService.convertToDTO(value)))
-                     .orElseGet(() -> ResponseEntity.notFound().build());
+                    .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @DeleteMapping("/{branchId}")
     public ResponseEntity<Void> deleteBranch(@PathVariable Long branchId) {
@@ -64,8 +65,8 @@ public class BranchController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public List<Branch> getAllBranches() {
-        return branchService.getAllBranches();
-    }
+    @GetMapping("/all")
+public List<Branch> getAllBranches() {
+    return branchService.getAllBranches();
+}
 }

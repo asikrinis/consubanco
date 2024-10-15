@@ -21,7 +21,6 @@ public class ClientService {
 
     // Guardar un cliente
     public Client saveClient(Client client) {
-        // Asegurarte de que se guarda también la relación con las sucursales
         client.getBranches().forEach(branch -> branch.setClient(client));
         return clientRepository.save(client);
     }
