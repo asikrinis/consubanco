@@ -1,29 +1,29 @@
 package com.consuban.investment.Objetos;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "branch")
 public class Branch {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idBranch;
 
     private String branchName;
     private String address;
 
-    @OneToMany(mappedBy = "branch")
-    private Set<ClientHasBranch> clientBranches = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)  // Relación con la tabla Client
+    private Client client;
 
     // Getters y Setters
-    public Long getId() {
-        return id;
+
+    public Long getIdBranch() {
+        return idBranch;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdBranch(Long idBranch) {
+        this.idBranch = idBranch;
     }
 
     public String getBranchName() {
@@ -40,5 +40,13 @@ public class Branch {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

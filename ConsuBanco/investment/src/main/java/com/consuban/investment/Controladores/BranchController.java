@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.consuban.investment.DTO.BranchDTO;
@@ -32,10 +34,14 @@ public class BranchController {
         return ResponseEntity.ok(savedBranch);
     }
 
-    @PostMapping("/createBranch")
-    public Branch createBranch(@RequestBody BranchDTO branchDTO) {
-        Branch branch = branchService.convertToEntity(branchDTO);
-        return branchService.saveBranch(branch);
+    @PostMapping
+    public ResponseEntity<Branch> createBranch(@RequestParam Long clientId, @RequestBody Branch branch) {
+        try {
+            Branch createdBranch = branchService.createBranch(clientId, branch);
+            return new ResponseEntity<>(createdBranch, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/updateBranch")
@@ -58,12 +64,8 @@ public class BranchController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<BranchDTO>> getAllBranches() {
-        List<Branch> branches = branchService.getAllBranches();
-        List<BranchDTO> branchDTOs = branches.stream()
-                                             .map(branchService::convertToDTO)
-                                             .collect(Collectors.toList());
-        return ResponseEntity.ok(branchDTOs);
+    @GetMapping
+    public List<Branch> getAllBranches() {
+        return branchService.getAllBranches();
     }
 }

@@ -2,36 +2,25 @@ package com.consuban.investment.Objetos;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Client")
 public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idClient")
-    private Long idClient; 
-
-    @Column(name = "clientName", nullable = false)
+    private Long idClient;
+    
     private String clientName;
-
-    @Column(name = "phoneNum")
     private String phoneNum;
-
-    @Column(name = "clientCol")
     private String clientCol;
 
-    // Constructor sin parámetros
-    public Client() {}
-
-    // Constructor con parámetros
-    public Client(String clientName, String phoneNum, String clientCol) {
-        this.clientName = clientName;
-        this.phoneNum = phoneNum;
-        this.clientCol = clientCol;
-    }
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Branch> branches = new ArrayList<>();  // Inicializamos la lista
 
     // Getters y Setters
+
     public Long getIdClient() {
         return idClient;
     }
@@ -62,5 +51,19 @@ public class Client implements Serializable {
 
     public void setClientCol(String clientCol) {
         this.clientCol = clientCol;
+    }
+
+    public List<Branch> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<Branch> branches) {
+        this.branches = branches;
+    }
+
+    // Método para añadir sucursales al cliente y mantener la coherencia bidireccional
+    public void addBranch(Branch branch) {
+        branches.add(branch);
+        branch.setClient(this);  // Establece la relación en ambas direcciones
     }
 }

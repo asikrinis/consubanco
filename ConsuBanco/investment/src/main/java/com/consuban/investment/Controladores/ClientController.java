@@ -20,10 +20,13 @@ public class ClientController {
 
     // Crear un nuevo cliente
     @PostMapping("/saveClient")
-    public ResponseEntity<ClientDTO> saveClient(@RequestBody ClientDTO clientDTO) {
-        Client client = clientService.convertToEntity(clientDTO);
+    public ResponseEntity<Client> saveClient(@RequestBody Client client) {
+        // Asegurarse de que cada sucursal esté correctamente enlazada con el cliente
+        if (client.getBranches() != null) {
+            client.getBranches().forEach(branch -> branch.setClient(client));
+        }
         Client savedClient = clientService.saveClient(client);
-        return ResponseEntity.ok(clientService.convertToDTO(savedClient));
+        return ResponseEntity.ok(savedClient);
     }
 
     // Actualizar un cliente existente
@@ -52,11 +55,9 @@ public class ClientController {
 
     // Obtener todos los clientes
     @GetMapping("/all")
-    public ResponseEntity<List<ClientDTO>> getAllClients() {
+    public ResponseEntity<List<Client>> getAllClients() {
         List<Client> clients = clientService.getAllClients();
-        List<ClientDTO> clientDTOs = clients.stream()
-                                             .map(clientService::convertToDTO)
-                                             .collect(Collectors.toList());
-        return ResponseEntity.ok(clientDTOs);
+        return ResponseEntity.ok(clients);
     }
+
 }

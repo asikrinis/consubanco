@@ -9,6 +9,7 @@ import com.consuban.investment.Objetos.ClientHasBranch;
 import com.consuban.investment.Repositorio.BranchRepository;
 import com.consuban.investment.Repositorio.ClientHasBranchRepository;
 import com.consuban.investment.Repositorio.ClientRepository;
+import com.consuban.investment.Objetos.ClientBranchId;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -27,9 +28,10 @@ public class DataInitializer implements CommandLineRunner {
         // Verificar y crear el cliente si no existe
         Client client = clientRepository.findById(1L).orElseGet(() -> {
             Client newClient = new Client();
-            newClient.setIdClient(1L);
             newClient.setClientName("Nombre del Cliente");
-            return clientRepository.save(newClient);
+            newClient.setPhoneNum("1234567890");
+            newClient.setClientCol("Colonia Cliente");
+            return clientRepository.save(newClient); // Hibernate generará el ID automáticamente
         });
         
         // Verificar y crear la sucursal si no existe
@@ -37,11 +39,15 @@ public class DataInitializer implements CommandLineRunner {
             Branch newBranch = new Branch();
             newBranch.setBranchName("Sucursal Principal");
             newBranch.setAddress("Dirección de la Sucursal");
+            newBranch.setClient(client); // Asignamos el cliente a la sucursal
             return branchRepository.save(newBranch);
         });
 
-        // Crear la relación entre cliente y sucursal
-        ClientHasBranch clientHasBranch = new ClientHasBranch(client, branch);
-        clientHasBranchRepository.save(clientHasBranch);
+        // Crear la relación entre cliente y sucursal si no existe ya
+        if (!clientHasBranchRepository.existsById(new ClientBranchId(client.getIdClient(), branch.getIdBranch()))) {
+            ClientHasBranch clientHasBranch = new ClientHasBranch(client, branch);
+            clientHasBranchRepository.save(clientHasBranch);
+        }
+        
     }
 }

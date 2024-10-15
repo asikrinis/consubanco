@@ -2,6 +2,7 @@ package com.consuban.investment.Servicio;
 
 import com.consuban.investment.DTO.ClientDTO;
 import com.consuban.investment.Objetos.Client;
+import com.consuban.investment.Repositorio.BranchRepository;
 import com.consuban.investment.Repositorio.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,13 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private BranchRepository branchRepository;
+
     // Guardar un cliente
     public Client saveClient(Client client) {
+        // Asegurarte de que se guarda también la relación con las sucursales
+        client.getBranches().forEach(branch -> branch.setClient(client));
         return clientRepository.save(client);
     }
 

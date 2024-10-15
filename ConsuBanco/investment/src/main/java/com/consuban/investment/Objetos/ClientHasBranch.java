@@ -12,26 +12,22 @@ public class ClientHasBranch implements Serializable {
 
     @ManyToOne
     @MapsId("clientId")
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @ManyToOne
     @MapsId("branchId")
-    @JoinColumn(name = "branch_id", nullable = false)
+    @JoinColumn(name = "branch_id")
     private Branch branch;
 
     // Constructor sin parámetros
-    public ClientHasBranch() {
-    }
+    public ClientHasBranch() {}
 
     // Constructor con parámetros
     public ClientHasBranch(Client client, Branch branch) {
-        if (client == null || branch == null) {
-            throw new IllegalArgumentException("Client and Branch must not be null");
-        }
         this.client = client;
         this.branch = branch;
-        this.id = new ClientBranchId(client.getIdClient(), branch.getId());
+        this.id = new ClientBranchId(client.getIdClient(), branch.getIdBranch());
     }
 
     // Getters y Setters

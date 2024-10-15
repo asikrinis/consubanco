@@ -32,6 +32,7 @@ public class ClientDTO {
         this.phoneNum = phoneNum;
     }
 
+    // Getter y Setter para clientCol
     public String getClientCol() {
         return clientCol;
     }

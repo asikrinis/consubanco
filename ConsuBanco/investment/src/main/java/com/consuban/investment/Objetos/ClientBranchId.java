@@ -36,13 +36,14 @@ public class ClientBranchId implements Serializable {
         this.branchId = branchId;
     }
 
-    // Equals y hashCode
+    // Sobrescribir equals y hashCode para que la comparación de objetos funcione correctamente
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClientBranchId that = (ClientBranchId) o;
-        return Objects.equals(clientId, that.clientId) && Objects.equals(branchId, that.branchId);
+        return Objects.equals(clientId, that.clientId) && 
+               Objects.equals(branchId, that.branchId);
     }
 
     @Override
