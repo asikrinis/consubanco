@@ -17,7 +17,7 @@ public class Client implements Serializable {
     private String clientCol;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Branch> branches = new ArrayList<>();  // Inicializamos la lista
+    private List<Branch> branches = new ArrayList<>(); 
 
     // Getters y Setters
 
