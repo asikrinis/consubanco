@@ -218,11 +218,22 @@ Esta API permite la interacción a través de operaciones HTTP como `GET`, `POST
 - **Método:** `POST`
 - **Body:**
   ```json
-  {
-    "idClient": "CL001",
-    "clientName": "Juan Pérez",
-    "phoneNum": "5551234567"
-  }
+{
+  "clientName": "Juan Pérez",
+  "phoneNum": "5551234567",
+  "clientCol": "Colonia Ejemplo",
+  "branches": [
+    {
+      "branchName": "Sucursal Norte",
+      "address": "Ciudad de México"
+    },
+    {
+      "branchName": "Sucursal Sur",
+      "address": "Monterrey"
+    }
+  ]
+}
+
   ```
 - **Respuesta:**
   ```json
@@ -239,11 +250,12 @@ Esta API permite la interacción a través de operaciones HTTP como `GET`, `POST
 - **Método:** `PUT`
 - **Body:**
   ```json
-  {
-    "idClient": "CL001",
-    "clientName": "Juan Pérez Actualizado",
-    "phoneNum": "5559876543"
-  }
+{
+    "idClient": 103,
+    "clientName": "Jane Doe",
+    "phoneNum": "555123455",
+    "clientCol": "Colonia Condado"
+}
   ```
 - **Respuesta:**
   ```json
